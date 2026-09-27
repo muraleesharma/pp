@@ -7,13 +7,13 @@ export function CreatorCard() {
       <div className="creator-content">
         <div className="creator-card">
           <span
-            className="creator-ornament creator-ornament-one"
+            className="creator-ornament creator-ornament-one twinkle-star"
             aria-hidden="true"
           >
             ✳
           </span>
           <span
-            className="creator-ornament creator-ornament-two"
+            className="creator-ornament creator-ornament-two twinkle-star"
             aria-hidden="true"
           >
             ✦

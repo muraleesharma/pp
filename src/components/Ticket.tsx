@@ -134,12 +134,17 @@ export function Ticket() {
             {dateParts.month.slice(0, 3).toUpperCase()} / {dateParts.year}
           </span>
           <span className="stub-stars" aria-hidden="true">
-            ✦ ✦ ✦
+            <span className="twinkle-star">✦</span>
+            <span className="twinkle-star">✦</span>
+            <span className="twinkle-star">✦</span>
           </span>
         </div>
       </div>
       <p className="event-status" role="status">
-        ✦ {status}
+        <span className="twinkle-star" aria-hidden="true">
+          ✦
+        </span>{" "}
+        {status}
       </p>
       <div className="venue-guide">
         <div className="venue-guide-art" aria-hidden="true">
@@ -174,6 +179,7 @@ export function Ticket() {
               strokeWidth="4"
             />
             <path
+              className="twinkle-svg"
               d="m335 66 9 19 21 3-15 15 4 21-19-10-19 10 4-21-15-15 21-3Z"
               fill="#f1c962"
               stroke="#18333a"
@@ -181,6 +187,7 @@ export function Ticket() {
               strokeLinejoin="round"
             />
             <path
+              className="twinkle-svg"
               d="m67 56 4 10 10 4-10 4-4 10-4-10-10-4 10-4Zm127 50 3 7 7 3-7 3-3 7-3-7-7-3 7-3Z"
               fill="#f1c962"
             />

@@ -79,6 +79,7 @@ function StarCharacter({
         </>
       )}
       <path
+        className="twinkle-svg"
         d={
           isPravya
             ? "m171 39 3 8 8 3-8 3-3 8-3-8-8-3 8-3Z"
@@ -111,7 +112,10 @@ export function Stars() {
           Meet the <em>stars</em>
         </h2>
         <p className="stars-instruction">
-          Tap a star to see her sparkle <span aria-hidden="true">✦</span>
+          Tap a star to see her sparkle{" "}
+          <span className="twinkle-star" aria-hidden="true">
+            ✦
+          </span>
         </p>
       </div>
       <div className="star-tabs" role="group" aria-label="Choose a star">
@@ -122,7 +126,10 @@ export function Stars() {
             aria-pressed={active === index}
             onClick={() => selectStar(index)}
           >
-            {name} <span aria-hidden="true">✦</span>
+            {name}{" "}
+            <span className="twinkle-star" aria-hidden="true">
+              ✦
+            </span>
           </button>
         ))}
       </div>
@@ -177,7 +184,7 @@ export function Stars() {
         ))}
         <div className="footlights" aria-hidden="true">
           {Array.from({ length: 13 }, (_, i) => (
-            <i key={i} />
+            <i className="twinkle-star" key={i} />
           ))}
         </div>
       </div>
@@ -203,9 +210,9 @@ export function Stars() {
         aria-live="polite"
       >
         <div className="together-orbit" aria-hidden="true">
-          <span>✦</span>
-          <span>✳</span>
-          <span>✦</span>
+          <span className="twinkle-star">✦</span>
+          <span className="twinkle-star">✳</span>
+          <span className="twinkle-star">✦</span>
         </div>
         <p className="eyebrow">And together, they are turning</p>
         <strong>

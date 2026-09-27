@@ -19,11 +19,11 @@ export function Opening({ open, skipped, onOpen, onSkip }: Props) {
       aria-label="Opening stage"
     >
       <div className="stage-stars" aria-hidden="true">
-        <i>✦</i>
-        <i>✳</i>
-        <i>✦</i>
-        <i>✳</i>
-        <i>✦</i>
+        <i className="twinkle-star">✦</i>
+        <i className="twinkle-star">✳</i>
+        <i className="twinkle-star">✦</i>
+        <i className="twinkle-star">✳</i>
+        <i className="twinkle-star">✦</i>
       </div>
       <div className="opening-inner">
         <div className="theatre-sign">
@@ -37,8 +37,8 @@ export function Opening({ open, skipped, onOpen, onSkip }: Props) {
           <br />
           celebration<span className="period">.</span>
         </h1>
-        <div className="hero-rule">
-          <span>✦</span>
+        <div className="hero-rule" aria-hidden="true">
+          <span className="twinkle-star">✦</span>
         </div>
         <p className="hero-starring">
           Starring{" "}
@@ -60,7 +60,9 @@ export function Opening({ open, skipped, onOpen, onSkip }: Props) {
       {!open && (
         <div className="opening-cover">
           <div className="cover-ornament" aria-hidden="true">
-            ✦ <span>✧</span> ✦
+            <span className="twinkle-star">✦</span>
+            <span className="twinkle-star">✧</span>
+            <span className="twinkle-star">✦</span>
           </div>
           <p className="cover-kicker">The Grand Little Theatre presents</p>
           <h2>

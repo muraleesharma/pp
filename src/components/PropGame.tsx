@@ -146,7 +146,10 @@ export function PropGame() {
             return (
               <li key={item.id} className={isFound ? "collected" : ""}>
                 <span>{item.label}</span>
-                <span className="inventory-mark" aria-hidden="true">
+                <span
+                  className={`inventory-mark ${isFound ? "" : "twinkle-star"}`}
+                  aria-hidden="true"
+                >
                   {isFound ? "✓" : "✦"}
                 </span>
               </li>
@@ -186,19 +189,30 @@ export function PropGame() {
         aria-label="Find the party props game"
       >
         <div className="prop-stage-sign">
-          THE PROP ROOM <span aria-hidden="true">✦</span>
+          THE PROP ROOM{" "}
+          <span className="twinkle-star" aria-hidden="true">
+            ✦
+          </span>
         </div>
         <span className="prop-stage-number" aria-hidden="true">
           0{found.length} / 03
         </span>
         <div className="prop-playfield">
           <div className="stage-garland" aria-hidden="true">
-            ✦ ───── ✳ ───── ✦
+            <span className="twinkle-star">✦</span> ─────{" "}
+            <span className="twinkle-star">✳</span> ─────{" "}
+            <span className="twinkle-star">✦</span>
           </div>
-          <span className="prop-stage-spark spark-one" aria-hidden="true">
+          <span
+            className="prop-stage-spark spark-one twinkle-star"
+            aria-hidden="true"
+          >
             ✦
           </span>
-          <span className="prop-stage-spark spark-two" aria-hidden="true">
+          <span
+            className="prop-stage-spark spark-two twinkle-star"
+            aria-hidden="true"
+          >
             ✧
           </span>
           {props.map((item) => {

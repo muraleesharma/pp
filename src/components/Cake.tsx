@@ -23,7 +23,9 @@ export function Cake() {
       </div>
       <div className="cake-stage">
         <div className="cake-stars" aria-hidden="true">
-          ✦ <span>✳</span> ✦
+          <span className="twinkle-star">✦</span>
+          <span className="twinkle-star">✳</span>
+          <span className="twinkle-star">✦</span>
         </div>
         <div className="cake-illustration">
           <div className="candles">
@@ -43,7 +45,7 @@ export function Cake() {
             ))}
           </div>
           <div className="cake-tier tier-top">
-            <span>✦ &nbsp; ✦ &nbsp; ✦</span>
+            <span className="twinkle-star">✦ &nbsp; ✦ &nbsp; ✦</span>
           </div>
           <div className="cake-tier tier-bottom">
             <span>♡ &nbsp; ♡ &nbsp; ♡ &nbsp; ♡</span>
@@ -80,7 +82,10 @@ export function Cake() {
           </>
         ) : (
           <p>
-            Two candles. Twice the magic. <span>✦</span>
+            Two candles. Twice the magic.{" "}
+            <span className="twinkle-star" aria-hidden="true">
+              ✦
+            </span>
           </p>
         )}
       </div>
