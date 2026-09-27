@@ -26,7 +26,7 @@ Open the local URL shown by Vite. Check the production build with `npm run build
 
 1. Commit this repository and push it to your Git host.
 2. In Vercel, import the Git repository. Choose the **Vite** framework preset and **dist** output directory. The build command is `npm run build`.
-3. The build defaults to the public invitation URL, `https://ram-five-xi.vercel.app`. If the public domain changes, set `PUBLIC_SITE_URL` to its new **HTTPS** root URL, without a trailing slash, and redeploy.
+3. The build defaults to the public invitation URL, `https://pravya-pranavi.vercel.app`. If the public domain changes, set `PUBLIC_SITE_URL` to its new **HTTPS** root URL, without a trailing slash, and redeploy.
 4. Open the deployed page and `/share-card.png` directly. Both must load publicly. The image must return PNG content.
 5. Use **Share invitation** and paste into a draft WhatsApp chat. Check that the preview displays the theatre card, twins’ names, and event summary **before sending**. The button uses a distinct `?invitation=pravya-pranavi` URL so WhatsApp can fetch the corrected preview after the earlier plain URL was cached. If the preview does not appear, inspect the deployed HTML for `og:*` tags and the public image URL. WhatsApp preview caching and the recipient’s link-preview setting are outside the site’s control.
 
