@@ -11,7 +11,7 @@ npm ci
 npm run dev
 ```
 
-Open the local URL shown by Vite. Check the production build with `npm run build` and serve it with `npm run preview`.
+Open the local URL shown by Vite. Check a local build with `npm run build:local` and serve it with `npm run preview`. The production `npm run build` requires Vercel's public production URL, so it cannot publish broken preview metadata.
 
 ## Edit invitation content
 
@@ -25,7 +25,7 @@ Open the local URL shown by Vite. Check the production build with `npm run build
 ## Fresh Vercel deployment, with no domain yet
 
 1. Import `muraleesharma/ram` as a **new Vercel project**. Set the production branch to `main`, the framework to **Vite**, the build command to `npm run build`, and the output directory to `dist`.
-2. In **Settings → Environment Variables**, enable **Automatically expose System Environment Variables**. The build reads `VERCEL_PROJECT_PRODUCTION_URL`, which Vercel supplies even before you add a custom domain and even in preview builds. Do not set `PUBLIC_SITE_URL`.
+2. In **Settings → Environment Variables**, enable **Automatically expose System Environment Variables**. The build reads `VERCEL_PROJECT_PRODUCTION_URL`, which Vercel supplies even before you add a custom domain and even in preview builds. Without it, the production build fails with an instruction to enable the setting. Do not set `PUBLIC_SITE_URL`.
 3. In **Settings → Deployment Protection**, choose **Standard Protection** or **None**. **All Deployments** makes the production invitation inaccessible to guests and WhatsApp.
 4. Deploy the latest `main` commit to **Production**. The public address is the project's `.vercel.app` domain in **Settings → Domains**. Copy that address; do not share a generated `*-git-main-*` or commit-specific deployment URL.
 5. In a private browser window, open the public address and its `/share-card.png` image. View the public page source and confirm `og:url` and `og:image` use that same public domain. The image must load without signing in.

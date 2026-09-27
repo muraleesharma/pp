@@ -12,11 +12,11 @@ const escapeHtml = (value: string) =>
     .replaceAll('"', "&quot;")
     .replaceAll("<", "&lt;");
 
-export default defineConfig(() => {
+export default defineConfig(({ command, mode }) => {
   // Vercel supplies its public production domain on both production and preview builds.
   // Generated VERCEL_URL and VERCEL_BRANCH_URL addresses may require a login.
   const productionHost = process.env.VERCEL_PROJECT_PRODUCTION_URL?.trim();
-  if (process.env.VERCEL && !productionHost) {
+  if (!productionHost && command === "build" && mode !== "local-preview") {
     throw new Error(
       "Enable 'Automatically expose System Environment Variables' in Vercel so the public invitation URL is available at build time.",
     );

@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite --host 0.0.0.0",
     "build": "tsc -b && vite build",
+    "build:local": "tsc -b && vite build --mode local-preview",
     "preview": "vite preview --host 0.0.0.0",
     "share-card": "node scripts/generate-share-card.mjs",
     "format": "prettier --write src vite.config.ts scripts/generate-share-card.mjs index.html",
