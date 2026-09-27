@@ -56,8 +56,40 @@ export default function App() {
         Skip to party details
       </a>
       <header className={`site-header ${scrolled ? "scrolled" : ""}`}>
-        <a className="monogram" href="#top" aria-label="Back to the beginning">
-          P<span>&</span>P
+        <a
+          className="site-mark"
+          href="#top"
+          aria-label={`${eventConfig.twins[0]} and ${eventConfig.twins[1]} — back to the beginning`}
+        >
+          <svg
+            className="site-mark-stars"
+            viewBox="0 0 40 34"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path
+              className="twinkle-svg"
+              d="m13 2 3.1 7.3 7.9.6-6 5.2 1.9 7.7-6.9-4.1-6.9 4.1 1.9-7.7-6-5.2 7.9-.6Z"
+              fill="#f1c962"
+              stroke="#18333a"
+              strokeWidth="1.4"
+              strokeLinejoin="round"
+            />
+            <path
+              className="twinkle-svg"
+              d="m29 12 2.1 5.4 5.8.4-4.5 3.7 1.4 5.7-4.8-3.1-4.8 3.1 1.4-5.7-4.5-3.7 5.8-.4Z"
+              fill="#fff4df"
+              stroke="#18333a"
+              strokeWidth="1.2"
+              strokeLinejoin="round"
+            />
+          </svg>
+          <span className="site-mark-names" aria-hidden="true">
+            <span>{eventConfig.twins[0]}</span>
+            <span>
+              <em>&</em> {eventConfig.twins[1]}
+            </span>
+          </span>
         </a>
         <span className="header-caption">
           A little theatre for a very big day
