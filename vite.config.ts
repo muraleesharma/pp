@@ -15,9 +15,16 @@ const escapeHtml = (value: string) =>
 export default defineConfig(({ mode }) => {
   // This build-time setting keeps crawlers and WhatsApp independent of React.
   const env = loadEnv(mode, process.cwd(), "");
-  const siteUrl = (
-    env.PUBLIC_SITE_URL || "https://pravya-pranavi.vercel.app"
-  ).replace(/\/$/, "");
+  const configuredSiteUrl = env.PUBLIC_SITE_URL?.trim().replace(/\/$/, "");
+  // Earlier deployments used these URLs; neither can serve the current preview.
+  const outdatedSiteUrls = [
+    "https://YOUR-PRODUCTION-DOMAIN.vercel.app",
+    "https://ram-five-xi.vercel.app",
+  ];
+  const siteUrl =
+    configuredSiteUrl && !outdatedSiteUrls.includes(configuredSiteUrl)
+      ? configuredSiteUrl
+      : "https://pravya-pranavi.vercel.app";
   const parsedSiteUrl = new URL(siteUrl);
   if (
     parsedSiteUrl.protocol !== "https:" ||
