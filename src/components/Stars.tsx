@@ -2,54 +2,89 @@ import { useState } from "react";
 import { eventConfig } from "../config/eventConfig";
 import { scrollBehavior } from "../utils/scroll";
 
-function Motif({ variant }: { variant: "sun" | "moon" }) {
-  return variant === "sun" ? (
-    <svg className="star-motif" viewBox="0 0 210 210" aria-hidden="true">
-      <circle
-        cx="105"
-        cy="105"
-        r="57"
-        fill="#f1c962"
+function StarCharacter({
+  variant,
+  sparkling,
+}: {
+  variant: 0 | 1;
+  sparkling: boolean;
+}) {
+  const isPravya = variant === 0;
+  const starPath =
+    "M110 16 136 72 198 79 151 120 165 184 110 150 55 184 69 120 22 79 84 72Z";
+
+  return (
+    <svg
+      className={`star-motif ${sparkling ? "sparkling" : ""}`}
+      viewBox="0 0 220 220"
+      aria-hidden="true"
+    >
+      <path
+        d={starPath}
+        fill="#18333a"
+        opacity=".16"
+        transform="translate(0 8)"
+      />
+      <path
+        d={starPath}
+        fill={isPravya ? "#f1c962" : "#ee9785"}
         stroke="#18333a"
-        strokeWidth="2"
-      />
-      <circle cx="105" cy="105" r="42" fill="#ffe3a5" />
-      <path
-        d="M105 4v28M105 178v28M4 105h28M178 105h28M33 33l20 20m104 104 20 20M177 33l-20 20M53 157l-20 20"
-        stroke="#ea806a"
-        strokeWidth="6"
-        strokeLinecap="round"
-      />
-      <circle cx="83" cy="102" r="3" fill="#18333a" />
-      <circle cx="126" cy="102" r="3" fill="#18333a" />
-      <path
-        d="M91 122q14 12 28 0"
-        fill="none"
-        stroke="#18333a"
-        strokeWidth="2"
-        strokeLinecap="round"
-      />
-    </svg>
-  ) : (
-    <svg className="star-motif" viewBox="0 0 210 210" aria-hidden="true">
-      <path
-        d="M139 30c-28 6-48 31-48 61 0 34 28 62 62 62 10 0 19-2 27-6-13 21-37 35-65 35-42 0-76-34-76-76s34-76 76-76c8 0 16 0 24 0Z"
-        fill="#f1c962"
-        stroke="#18333a"
-        strokeWidth="2"
+        strokeWidth="3.5"
+        strokeLinejoin="round"
       />
       <path
-        d="m159 23 4 11 11 4-11 4-4 11-4-11-11-4 11-4Zm20 76 3 8 8 3-8 3-3 8-3-8-8-3 8-3Z"
-        fill="#ea806a"
+        d="M110 24 122 78 110 91 99 79Z"
+        fill={isPravya ? "#ffe6a5" : "#ffd5bb"}
+        opacity=".9"
       />
-      <circle cx="94" cy="108" r="3" fill="#18333a" />
-      <circle cx="132" cy="108" r="3" fill="#18333a" />
+      <path d="M31 82 83 79 101 101 67 111Z" fill="#fff4df" opacity=".32" />
       <path
-        d="M100 127q14 12 27 0"
-        fill="none"
-        stroke="#18333a"
-        strokeWidth="2"
-        strokeLinecap="round"
+        d="M153 121 158 173 117 147Z"
+        fill={isPravya ? "#dca947" : "#cf6c70"}
+        opacity=".5"
+      />
+      {isPravya ? (
+        <>
+          <circle cx="90" cy="110" r="3.5" fill="#18333a" />
+          <circle cx="130" cy="110" r="3.5" fill="#18333a" />
+          <path
+            d="M96 128q14 14 28 0"
+            fill="none"
+            stroke="#18333a"
+            strokeWidth="3"
+            strokeLinecap="round"
+          />
+          <circle cx="77" cy="124" r="6" fill="#ea806a" opacity=".65" />
+          <circle cx="143" cy="124" r="6" fill="#ea806a" opacity=".65" />
+        </>
+      ) : (
+        <>
+          <path
+            d="M82 111q9-8 18 0"
+            fill="none"
+            stroke="#18333a"
+            strokeWidth="3"
+            strokeLinecap="round"
+          />
+          <circle cx="131" cy="109" r="3.5" fill="#18333a" />
+          <path
+            d="M96 128q15 12 29-2"
+            fill="none"
+            stroke="#18333a"
+            strokeWidth="3"
+            strokeLinecap="round"
+          />
+          <circle cx="76" cy="124" r="6" fill="#f1c962" opacity=".7" />
+          <circle cx="144" cy="123" r="6" fill="#f1c962" opacity=".7" />
+        </>
+      )}
+      <path
+        d={
+          isPravya
+            ? "m171 39 3 8 8 3-8 3-3 8-3-8-8-3 8-3Z"
+            : "m43 29 3 8 8 3-8 3-3 8-3-8-8-3 8-3Z"
+        }
+        fill={isPravya ? "#ea806a" : "#f1c962"}
       />
     </svg>
   );
@@ -59,6 +94,14 @@ export function Stars() {
   const [active, setActive] = useState(0);
   const [together, setTogether] = useState(false);
   const [photoFailed, setPhotoFailed] = useState([false, false]);
+  const [sparkle, setSparkle] = useState<{
+    index: number;
+    count: number;
+  } | null>(null);
+  const selectStar = (index: number) => {
+    setActive(index);
+    setSparkle((current) => ({ index, count: (current?.count ?? 0) + 1 }));
+  };
   return (
     <section id="stars" className="stars-section section-pad">
       <div className="section-heading light-heading">
@@ -67,6 +110,9 @@ export function Stars() {
         <h2>
           Meet the <em>stars</em>
         </h2>
+        <p className="stars-instruction">
+          Tap a star to see her sparkle <span aria-hidden="true">✦</span>
+        </p>
       </div>
       <div className="star-tabs" role="group" aria-label="Choose a star">
         {eventConfig.twins.map((name, index) => (
@@ -74,7 +120,7 @@ export function Stars() {
             key={name}
             type="button"
             aria-pressed={active === index}
-            onClick={() => setActive(index)}
+            onClick={() => selectStar(index)}
           >
             {name} <span aria-hidden="true">✦</span>
           </button>
@@ -86,9 +132,9 @@ export function Stars() {
             key={name}
             type="button"
             className={`spotlight spotlight-${index} ${active === index ? "active" : ""}`}
-            onClick={() => setActive(index)}
+            onClick={() => selectStar(index)}
             aria-pressed={active === index}
-            aria-label={`Spotlight on ${name}`}
+            aria-label={`Make ${name}'s star sparkle`}
           >
             <span className="spotlight-beam" aria-hidden="true" />
             <span className="portrait-disc">
@@ -104,15 +150,28 @@ export function Stars() {
                   }
                 />
               ) : (
-                <Motif variant={index === 0 ? "sun" : "moon"} />
+                <StarCharacter
+                  key={`star-${index}-${sparkle?.index === index ? sparkle.count : "rest"}`}
+                  variant={index as 0 | 1}
+                  sparkling={sparkle?.index === index}
+                />
+              )}
+              {sparkle?.index === index && (
+                <span
+                  className="disc-sparkles"
+                  key={`burst-${index}-${sparkle.count}`}
+                  aria-hidden="true"
+                >
+                  {Array.from({ length: 7 }, (_, sparkleIndex) => (
+                    <i key={sparkleIndex}>✦</i>
+                  ))}
+                </span>
               )}
             </span>
             <span className="spotlight-number">0{index + 1} / THE STAR</span>
             <span className="spotlight-name">{name}</span>
             <span className="spotlight-caption">
-              {index === 0
-                ? "A pocketful of sunshine"
-                : "A little moonbeam of joy"}
+              {index === 0 ? "A bright little spark" : "A twinkle all her own"}
             </span>
           </button>
         ))}
@@ -123,7 +182,7 @@ export function Stars() {
         </div>
       </div>
       <div className="stars-action">
-        <p>Different little lights. A shared first trip around the sun.</p>
+        <p>Two little lights. One brilliant first year.</p>
         <button
           type="button"
           className="button button-coral"

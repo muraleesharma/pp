@@ -19,7 +19,7 @@ Open the local URL shown by Vite. Check the production build with `npm run build
 - `calendarEndTime` is currently `null`, because the family supplied no end time. Set a valid same-day end time later to show **Add to calendar**. Do not guess one.
 - `rsvpWhatsAppNumber` is currently `null`, so no RSVP action appears. If provided, enter the **family’s** international phone number as digits. The creator WhatsApp button is only for new invitation enquiries.
 - `approvedMapUrl` may replace the full-address Google Maps search once an exact pin is approved. Until then, the supplied address is used as the search query.
-- `portraits` may contain paths to approved photos placed in `public/`. Leave both `null` to use the original sun and moon illustrations. Label each portrait by the matching tuple position.
+- `portraits` may contain paths to approved photos placed in `public/`. Leave both `null` to use the two original star illustrations. Label each portrait by the matching tuple position.
 - The 1200×630 preview image is [`public/share-card.png`](public/share-card.png). Its editable design is [`design/share-card.svg`](design/share-card.svg). After editing event facts, run `npm run share-card` to regenerate the PNG from the config. This command needs a local Google Chrome installation. Review the resulting image before committing it.
 
 ## Deploy with Git and Vercel

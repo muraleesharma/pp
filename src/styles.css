@@ -562,6 +562,16 @@ section {
 .light-heading h2 em {
   color: #f1c962;
 }
+.stars-instruction {
+  margin: -8px 0 0;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: #fff4dfc9;
+}
+.stars-instruction span {
+  margin-left: 5px;
+  color: #f1c962;
+}
 .star-tabs {
   display: none;
 }
@@ -625,6 +635,7 @@ section {
   opacity: 1;
 }
 .portrait-disc {
+  position: relative;
   width: clamp(190px, 22vw, 260px);
   height: clamp(190px, 22vw, 260px);
   border-radius: 50%;
@@ -639,6 +650,9 @@ section {
   overflow: hidden;
   transition: transform 0.25s;
 }
+.spotlight-1 .portrait-disc {
+  background: #f8dfc9;
+}
 .spotlight:hover .portrait-disc,
 .spotlight.active .portrait-disc {
   transform: translateY(-7px);
@@ -649,9 +663,113 @@ section {
   object-fit: cover;
 }
 .star-motif {
-  width: 79%;
-  height: 79%;
+  width: 91%;
+  height: 91%;
   filter: drop-shadow(0 9px 0 #18333a17);
+  transform-origin: 50% 54%;
+  transition: transform 0.22s ease-out;
+}
+.spotlight:hover .star-motif:not(.sparkling),
+.spotlight:focus-visible .star-motif:not(.sparkling) {
+  transform: rotate(-6deg) scale(1.06);
+}
+.star-motif.sparkling {
+  animation: star-hop 0.8s cubic-bezier(0.24, 0.72, 0.26, 1) both;
+}
+.disc-sparkles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+.disc-sparkles i {
+  position: absolute;
+  font-style: normal;
+  font-size: 22px;
+  line-height: 1;
+  color: #fff4df;
+  opacity: 0;
+  animation: star-burst 0.8s ease-out both;
+}
+.disc-sparkles i:nth-child(1) {
+  top: 14%;
+  left: 23%;
+  --dx: -10px;
+  --dy: -21px;
+}
+.disc-sparkles i:nth-child(2) {
+  top: 10%;
+  right: 24%;
+  --dx: 12px;
+  --dy: -23px;
+  animation-delay: 0.06s;
+}
+.disc-sparkles i:nth-child(3) {
+  top: 36%;
+  left: 8%;
+  --dx: -18px;
+  --dy: -5px;
+  animation-delay: 0.11s;
+  color: #ea806a;
+}
+.disc-sparkles i:nth-child(4) {
+  top: 37%;
+  right: 8%;
+  --dx: 19px;
+  --dy: -7px;
+  animation-delay: 0.03s;
+  color: #f1c962;
+}
+.disc-sparkles i:nth-child(5) {
+  bottom: 20%;
+  left: 12%;
+  --dx: -15px;
+  --dy: 16px;
+  animation-delay: 0.08s;
+}
+.disc-sparkles i:nth-child(6) {
+  bottom: 16%;
+  right: 15%;
+  --dx: 15px;
+  --dy: 17px;
+  animation-delay: 0.13s;
+  color: #ea806a;
+}
+.disc-sparkles i:nth-child(7) {
+  bottom: 6%;
+  left: 48%;
+  --dx: 0px;
+  --dy: 16px;
+  animation-delay: 0.04s;
+  color: #f1c962;
+}
+@keyframes star-hop {
+  0% {
+    transform: scale(0.9) rotate(-8deg);
+  }
+  36% {
+    transform: scale(1.12) rotate(8deg);
+  }
+  67% {
+    transform: scale(0.97) rotate(-4deg);
+  }
+  100% {
+    transform: scale(1) rotate(0);
+  }
+}
+@keyframes star-burst {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.15) rotate(-40deg);
+  }
+  35% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1) rotate(5deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--dx), var(--dy)) scale(1.45) rotate(65deg);
+  }
 }
 .spotlight-number {
   font-size: 10px;
