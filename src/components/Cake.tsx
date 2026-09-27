@@ -68,7 +68,7 @@ export function Cake() {
               turn <em>{eventConfig.milestoneWord}!</em>
             </h3>
             <a href="#details" className="button button-dark">
-              Your invitation ↓
+              View the invitation ↑
             </a>
             <button
               type="button"

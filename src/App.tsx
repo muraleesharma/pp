@@ -75,9 +75,9 @@ export default function App() {
           onSkip={skipIntro}
         />
         <Stars />
+        <Ticket />
         <PropGame />
         <Cake />
-        <Ticket />
         <CreatorCard />
       </main>
       <footer className="site-footer">

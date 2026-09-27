@@ -1,6 +1,6 @@
 # Pravya & Pranavi’s first birthday invitation
 
-A static, illustrated paper theatre invitation built with React, Vite, and TypeScript. It includes the curtain opening, twin spotlights, a small prop game, candle finale, event ticket, directions, sharing, and a separate creator credit. No guest data is stored.
+A static, illustrated paper theatre invitation built with React, Vite, and TypeScript. It includes the curtain opening, twin spotlights, event ticket and location guide, a small prop game, candle finale, sharing, and a separate creator credit. No guest data is stored.
 
 The DM Sans and Fraunces fonts are self-hosted through Fontsource; their SIL Open Font License texts are in [`licenses/`](licenses/).
 
