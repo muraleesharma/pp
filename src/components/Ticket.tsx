@@ -43,24 +43,27 @@ export function Ticket() {
   const calendar = calendarUrl();
   const rsvpNumber = eventConfig.rsvpWhatsAppNumber?.replace(/\D/g, "");
   const share = async () => {
-    const url = `${window.location.origin}/`;
+    // A distinct share URL lets WhatsApp fetch fresh metadata after the preview fix.
+    const url = `${window.location.origin}/?invitation=pravya-pranavi`;
+    const title = `${eventConfig.twins[0]} & ${eventConfig.twins[1]} turn ${eventConfig.milestoneWord}!`;
+    const message = `${title}\n${eventDateLabel} · ${eventTimeLabel} onwards\n${eventConfig.venueName}, ${eventConfig.venueShortLabel}\nWith love, ${eventConfig.hostNames}`;
     try {
       if (navigator.share)
         await navigator.share({
-          title: `${eventConfig.twins[0]} & ${eventConfig.twins[1]} turn ${eventConfig.milestoneWord}!`,
-          text: `Join us for their ${eventConfig.occasion} celebration!`,
+          title,
+          text: message,
           url,
         });
       else {
-        await navigator.clipboard.writeText(url);
-        setShareLabel("Link copied!");
+        await navigator.clipboard.writeText(`${message}\n${url}`);
+        setShareLabel("Invitation copied!");
         window.setTimeout(() => setShareLabel("Share invitation"), 3000);
       }
     } catch (error) {
       if (error instanceof DOMException && error.name === "AbortError") return;
       try {
-        await navigator.clipboard.writeText(url);
-        setShareLabel("Link copied!");
+        await navigator.clipboard.writeText(`${message}\n${url}`);
+        setShareLabel("Invitation copied!");
         window.setTimeout(() => setShareLabel("Share invitation"), 3000);
       } catch {
         setShareLabel("Copy link from address bar");
