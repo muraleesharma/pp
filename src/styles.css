@@ -1782,55 +1782,29 @@ section {
 /* The separate creator credit. */
 .creator-section {
   background: #e7d4bd;
-  display: grid;
-  grid-template-columns: minmax(160px, 0.55fr) minmax(0, 1.4fr);
-  gap: clamp(30px, 6vw, 95px);
-  align-items: center;
-}
-.creator-side-note {
-  align-self: stretch;
-  border-top: 1px solid #18333a;
-  padding-top: 30px;
-  display: flex;
-  flex-direction: column;
-  min-height: 250px;
-}
-.creator-side-note span {
-  font-size: 11px;
-  letter-spacing: 0.23em;
-  font-weight: 700;
-}
-.creator-side-note strong {
-  font-family: Fraunces, serif;
-  font-size: clamp(32px, 4vw, 61px);
-  letter-spacing: -0.06em;
-  line-height: 1.06;
-  margin: 42px 0;
-}
-.creator-side-note i {
-  font-size: 42px;
-  color: #a05261;
-  font-style: normal;
+  padding: clamp(42px, 3.5vw, 54px) clamp(20px, 5.5vw, 100px)
+    clamp(50px, 4vw, 64px);
 }
 .creator-content {
-  max-width: 810px;
+  max-width: 760px;
+  margin: 0 auto;
 }
 .creator-card {
   position: relative;
   background: #65364e;
   color: #fff4df;
-  border-radius: 32px;
-  padding: clamp(32px, 5vw, 68px);
+  border-radius: 25px;
+  padding: clamp(26px, 3vw, 40px);
   overflow: hidden;
-  box-shadow: 14px 16px 0 #b58169;
+  box-shadow: 9px 11px 0 #b58169;
 }
 .creator-card:after {
   content: "";
   position: absolute;
-  width: 430px;
-  height: 430px;
-  right: -220px;
-  top: -210px;
+  width: 300px;
+  height: 300px;
+  right: -160px;
+  top: -150px;
   border: 1px solid #fff4df3d;
   border-radius: 50%;
   box-shadow:
@@ -1841,31 +1815,31 @@ section {
 .creator-ornament {
   position: absolute;
   color: #f1c962;
-  font-size: 44px;
+  font-size: 29px;
 }
 .creator-ornament-one {
-  right: 45px;
-  bottom: 22px;
+  right: 29px;
+  bottom: 19px;
 }
 .creator-ornament-two {
-  right: 110px;
-  top: 60px;
-  font-size: 20px;
+  right: 55px;
+  top: 22px;
+  font-size: 16px;
 }
 .creator-overline {
-  font-size: 10px;
-  letter-spacing: 0.23em;
+  font-size: 9px;
+  letter-spacing: 0.18em;
   font-weight: 700;
   color: #f1c962;
-  max-width: 420px;
+  max-width: 520px;
   line-height: 1.6;
-  margin-bottom: 28px;
+  margin-bottom: 14px;
 }
 .creator-card h2 {
-  font-size: clamp(55px, 6.5vw, 95px);
-  letter-spacing: -0.07em;
-  line-height: 0.96;
-  margin: 0 0 25px;
+  font-size: clamp(40px, 4.2vw, 58px);
+  letter-spacing: -0.06em;
+  line-height: 1.02;
+  margin: 0 0 16px;
   position: relative;
   z-index: 2;
 }
@@ -1873,10 +1847,10 @@ section {
   color: #f1c962;
 }
 .creator-body {
-  font-size: 16px;
-  line-height: 1.65;
-  max-width: 465px;
-  margin-bottom: 31px;
+  font-size: 14px;
+  line-height: 1.6;
+  max-width: 580px;
+  margin-bottom: 21px;
   position: relative;
   z-index: 2;
 }
@@ -1884,32 +1858,34 @@ section {
   position: relative;
   z-index: 2;
   max-width: 100%;
-  min-height: 62px;
+  min-height: 50px;
+  padding: 11px 20px;
+  font-size: 12px;
 }
 .creator-credit {
   display: flex;
   justify-content: space-between;
-  gap: 20px;
+  gap: 8px 20px;
   flex-wrap: wrap;
-  font-size: 11px;
-  margin: 28px 0 0 14px;
+  font-size: 10px;
+  margin: 19px 0 0;
 }
 .creator-credit a {
   font-weight: 700;
   text-underline-offset: 4px;
 }
-.site-footer {
+.family-signoff {
   background: #18333a;
   color: #fff4df;
-  padding: 32px clamp(20px, 5.5vw, 100px);
+  padding: 28px clamp(20px, 5.5vw, 100px);
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
   font-family: Fraunces, serif;
-  font-size: 16px;
+  font-size: 20px;
 }
-.site-footer .text-button {
+.family-signoff .text-button {
   font-family: "DM Sans", sans-serif;
   color: #fff4df;
 }
@@ -1935,9 +1911,6 @@ section {
   }
   .stub-big {
     font-size: 95px;
-  }
-  .creator-section {
-    grid-template-columns: 1fr 2fr;
   }
 }
 @media (max-width: 760px) {
@@ -2116,23 +2089,10 @@ section {
     margin: 0;
   }
   .creator-section {
-    display: block;
-  }
-  .creator-side-note {
-    min-height: 0;
-    border: 0;
-    padding: 0 0 30px;
-  }
-  .creator-side-note strong {
-    margin: 15px 0 0;
-    max-width: 400px;
-  }
-  .creator-side-note i {
-    display: none;
+    padding: 48px 22px 64px;
   }
   .creator-content {
     max-width: 650px;
-    margin: auto;
   }
 }
 @media (max-width: 480px) {
@@ -2324,38 +2284,45 @@ section {
     width: 100%;
   }
   .creator-card {
-    padding: 32px 25px;
-    border-radius: 25px;
-    box-shadow: 8px 10px 0 #b58169;
+    padding: 27px 23px;
+    border-radius: 22px;
+    box-shadow: 7px 9px 0 #b58169;
   }
   .creator-overline {
-    font-size: 9px;
+    font-size: 8px;
   }
   .creator-card h2 {
-    font-size: 55px;
+    font-size: clamp(37px, 9vw, 43px);
   }
   .creator-body {
-    font-size: 14px;
+    font-size: 13px;
   }
   .creator-button {
-    font-size: 12px;
-    padding: 12px 15px;
-    gap: 7px;
+    width: 100%;
+    min-height: 48px;
+    font-size: 11px;
+    padding: 10px 12px;
+    gap: 8px;
   }
   .creator-ornament-one {
-    right: 20px;
-    bottom: 75px;
-    font-size: 26px;
+    right: 17px;
+    bottom: 10px;
+    font-size: 21px;
+  }
+  .creator-ornament-two {
+    display: none;
   }
   .creator-credit {
     margin-left: 0;
     line-height: 1.5;
   }
-  .site-footer {
+  .family-signoff {
     display: block;
     text-align: center;
+    font-size: 18px;
+    padding: 26px 20px;
   }
-  .site-footer .text-button {
+  .family-signoff .text-button {
     display: block;
     margin: 10px auto 0;
   }
@@ -2412,7 +2379,7 @@ section {
     padding: 19px 16px;
   }
   .creator-card h2 {
-    font-size: 49px;
+    font-size: 37px;
   }
 }
 @media (max-height: 700px) and (min-width: 761px) {

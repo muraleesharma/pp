@@ -78,14 +78,14 @@ export default function App() {
         <Ticket />
         <PropGame />
         <Cake />
+        <section className="family-signoff" aria-label="A note from the family">
+          <span>With love, {eventConfig.hostNames}</span>
+          <button type="button" className="text-button" onClick={replayIntro}>
+            Replay the opening ↑
+          </button>
+        </section>
         <CreatorCard />
       </main>
-      <footer className="site-footer">
-        <span>With love, {eventConfig.hostNames}</span>
-        <button type="button" className="text-button" onClick={replayIntro}>
-          Replay the opening ↑
-        </button>
-      </footer>
     </>
   );
 }
