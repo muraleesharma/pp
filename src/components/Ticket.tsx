@@ -43,8 +43,24 @@ export function Ticket() {
   const calendar = calendarUrl();
   const rsvpNumber = eventConfig.rsvpWhatsAppNumber?.replace(/\D/g, "");
   const share = async () => {
-    // A distinct share URL lets WhatsApp fetch fresh metadata after the preview fix.
-    const url = `${window.location.origin}/?invitation=pravya-pranavi`;
+    // The canonical URL is the public production domain generated at build time.
+    const publicUrl = document.querySelector<HTMLLinkElement>(
+      'link[rel="canonical"]',
+    )?.href;
+    if (!publicUrl) {
+      setShareLabel("Public link unavailable");
+      return;
+    }
+    const shareUrl = new URL(publicUrl);
+    if (
+      shareUrl.hostname === "localhost" &&
+      !["localhost", "127.0.0.1"].includes(window.location.hostname)
+    ) {
+      setShareLabel("Public link unavailable");
+      return;
+    }
+    shareUrl.searchParams.set("invitation", "pravya-pranavi");
+    const url = shareUrl.toString();
     const title = `${eventConfig.twins[0]} & ${eventConfig.twins[1]} turn ${eventConfig.milestoneWord}!`;
     const message = `${title}\n${eventDateLabel} · ${eventTimeLabel} onwards\n${eventConfig.venueName}, ${eventConfig.venueShortLabel}\nWith love, ${eventConfig.hostNames}`;
     try {

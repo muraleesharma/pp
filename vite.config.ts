@@ -1,4 +1,4 @@
-import { defineConfig, loadEnv } from "vite";
+import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import {
   eventConfig,
@@ -12,28 +12,27 @@ const escapeHtml = (value: string) =>
     .replaceAll('"', "&quot;")
     .replaceAll("<", "&lt;");
 
-export default defineConfig(({ mode }) => {
-  // This build-time setting keeps crawlers and WhatsApp independent of React.
-  const env = loadEnv(mode, process.cwd(), "");
-  const configuredSiteUrl = env.PUBLIC_SITE_URL?.trim().replace(/\/$/, "");
-  // Earlier deployments used these URLs; neither can serve the current preview.
-  const outdatedSiteUrls = [
-    "https://YOUR-PRODUCTION-DOMAIN.vercel.app",
-    "https://ram-five-xi.vercel.app",
-  ];
-  const siteUrl =
-    configuredSiteUrl && !outdatedSiteUrls.includes(configuredSiteUrl)
-      ? configuredSiteUrl
-      : "https://pravya-pranavi.vercel.app";
+export default defineConfig(() => {
+  // Vercel supplies its public production domain on both production and preview builds.
+  // Generated VERCEL_URL and VERCEL_BRANCH_URL addresses may require a login.
+  const productionHost = process.env.VERCEL_PROJECT_PRODUCTION_URL?.trim();
+  if (process.env.VERCEL && !productionHost) {
+    throw new Error(
+      "Enable 'Automatically expose System Environment Variables' in Vercel so the public invitation URL is available at build time.",
+    );
+  }
+  const siteUrl = productionHost
+    ? `https://${productionHost}`
+    : "http://localhost:4173";
   const parsedSiteUrl = new URL(siteUrl);
   if (
-    parsedSiteUrl.protocol !== "https:" ||
+    parsedSiteUrl.protocol !== (productionHost ? "https:" : "http:") ||
     parsedSiteUrl.pathname !== "/" ||
     parsedSiteUrl.search ||
     parsedSiteUrl.hash
   ) {
     throw new Error(
-      "PUBLIC_SITE_URL must be an HTTPS site root URL without a path, query, or fragment.",
+      "VERCEL_PROJECT_PRODUCTION_URL must be a domain name without a scheme, path, query, or fragment.",
     );
   }
   const names = `${eventConfig.twins[0]} & ${eventConfig.twins[1]}`;
