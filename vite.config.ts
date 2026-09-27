@@ -1,5 +1,6 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import { fileURLToPath } from "node:url";
 import {
   eventConfig,
   eventDateLabel,
@@ -39,7 +40,6 @@ export default defineConfig(({ command, mode }) => {
   const title = `${names} turn ${eventConfig.milestoneWord}!`;
   const description = `Join us ${eventDateLabel} at ${eventTimeLabel} for ${names}'s ${eventConfig.occasion} at ${eventConfig.venueName}, ${eventConfig.venueShortLabel}.`;
   const tokens: Record<string, string> = {
-    __PUBLIC_SITE_URL__: siteUrl,
     __PAGE_TITLE__: `${title} — Birthday invitation`,
     __PAGE_DESCRIPTION__: description,
     __OG_TITLE__: title,
@@ -48,12 +48,26 @@ export default defineConfig(({ command, mode }) => {
     __OG_IMAGE_ALT__: `A theatre invitation card for ${names}'s ${eventConfig.occasion}, ${eventDateLabel} at ${eventConfig.venueName}.`,
   };
   return {
+    build: {
+      rollupOptions: {
+        input: {
+          main: fileURLToPath(new URL("./index.html", import.meta.url)),
+          invite: fileURLToPath(new URL("./invite.html", import.meta.url)),
+        },
+      },
+    },
     plugins: [
       react(),
       {
         name: "static-social-metadata",
-        transformIndexHtml(html: string) {
-          return Object.entries(tokens).reduce(
+        transformIndexHtml(html: string, context: { path: string }) {
+          const pageUrl = `${siteUrl}${context.path.endsWith("/invite.html") ? "/invite.html" : "/"}`;
+          const pageTokens = {
+            ...tokens,
+            __PAGE_URL__: pageUrl,
+            __SHARE_IMAGE_URL__: `${siteUrl}/share-card.png?v=2`,
+          };
+          return Object.entries(pageTokens).reduce(
             (result, [token, value]) =>
               result.replaceAll(token, escapeHtml(value)),
             html,

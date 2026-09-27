@@ -9,8 +9,8 @@
     "build:local": "tsc -b && vite build --mode local-preview",
     "preview": "vite preview --host 0.0.0.0",
     "share-card": "node scripts/generate-share-card.mjs",
-    "format": "prettier --write src vite.config.ts scripts/generate-share-card.mjs index.html",
-    "format:check": "prettier --check src vite.config.ts scripts/generate-share-card.mjs index.html"
+    "format": "prettier --write src vite.config.ts scripts/generate-share-card.mjs index.html invite.html",
+    "format:check": "prettier --check src vite.config.ts scripts/generate-share-card.mjs index.html invite.html"
   },
   "dependencies": {
     "@fontsource/dm-sans": "^5.2.8",

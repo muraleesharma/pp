@@ -51,7 +51,7 @@ export function Ticket() {
       setShareLabel("Public link unavailable");
       return;
     }
-    const shareUrl = new URL(publicUrl);
+    const shareUrl = new URL("/invite.html", publicUrl);
     if (
       shareUrl.hostname === "localhost" &&
       !["localhost", "127.0.0.1"].includes(window.location.hostname)
@@ -59,7 +59,6 @@ export function Ticket() {
       setShareLabel("Public link unavailable");
       return;
     }
-    shareUrl.searchParams.set("invitation", "pravya-pranavi");
     const url = shareUrl.toString();
     const title = `${eventConfig.twins[0]} & ${eventConfig.twins[1]} turn ${eventConfig.milestoneWord}!`;
     const message = `${title}\n${eventDateLabel} · ${eventTimeLabel} onwards\n${eventConfig.venueName}, ${eventConfig.venueShortLabel}\nWith love, ${eventConfig.hostNames}`;
