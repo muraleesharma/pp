@@ -24,7 +24,7 @@ Open the local URL shown by Vite. Check a local build with `npm run build:local`
 
 ## Fresh Vercel deployment, with no domain yet
 
-1. Import `muraleesharma/ram` as a **new Vercel project**. Set the production branch to `main`, the framework to **Vite**, the build command to `npm run build`, and the output directory to `dist`.
+1. Import `muraleesharma/pp` as a **new Vercel project**. Set the production branch to `main`, the framework to **Vite**, the build command to `npm run build`, and the output directory to `dist`.
 2. In **Settings → Environment Variables**, enable **Automatically expose System Environment Variables**. The build reads `VERCEL_PROJECT_PRODUCTION_URL`, which Vercel supplies even before you add a custom domain and even in preview builds. Without it, the production build fails with an instruction to enable the setting. Do not set `PUBLIC_SITE_URL`.
 3. In **Settings → Deployment Protection**, choose **Standard Protection** or **None**. **All Deployments** makes the production invitation inaccessible to guests and WhatsApp.
 4. Deploy the latest `main` commit to **Production**. The public address is the project's `.vercel.app` domain in **Settings → Domains**. Copy that address; do not share a generated `*-git-main-*` or commit-specific deployment URL.
