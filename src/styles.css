@@ -893,26 +893,73 @@ section {
   max-width: 360px;
 }
 .game-progress {
-  margin: 34px 0 13px;
+  margin: 28px 0 13px;
   border-top: 1px solid #18333a80;
   border-bottom: 1px solid #18333a80;
-  padding: 12px 0;
+  padding: 13px 0;
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
+  gap: 15px;
 }
-.game-progress > span {
+.game-progress > strong {
   font-family: Fraunces, serif;
-  font-size: 48px;
+  font-size: 52px;
+  font-weight: 400;
   letter-spacing: -0.08em;
   line-height: 1;
 }
-.game-progress small {
-  font-size: 21px;
+.game-progress > strong small {
+  font-size: 22px;
   color: #9d4c5a;
+}
+.game-progress > span {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.13em;
+  font-weight: 700;
+}
+.game-progress > span small {
+  display: block;
+  margin-top: 3px;
+  font-size: 11px;
+  line-height: 1.4;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+}
+.prop-inventory {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 7px;
+  margin: 0 0 15px;
+  padding: 0;
+}
+.prop-inventory li {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+  padding: 6px 9px;
+  border: 1px solid #18333a65;
+  background: #fff4df7a;
+  font-size: 11px;
+  text-transform: capitalize;
+  transition:
+    background 0.3s,
+    transform 0.3s;
+}
+.prop-inventory li.collected {
+  background: #f1c962;
+  transform: translateY(-3px);
+}
+.inventory-mark {
+  font-size: 15px;
+  color: #9d4c5a;
+}
+.collected .inventory-mark {
+  color: #18333a;
 }
 .game-actions {
   display: flex;
@@ -920,7 +967,7 @@ section {
   gap: 5px 22px;
 }
 .prop-stage {
-  min-height: 490px;
+  min-height: 500px;
   position: relative;
   border: 11px solid #a86758;
   background: radial-gradient(circle at 50% 65%, #698780, #31535c 70%);
@@ -928,6 +975,9 @@ section {
     12px 14px 0 #18333a,
     inset 0 0 0 2px #f1c962;
   overflow: hidden;
+  padding: 20px 52px 18px;
+  display: flex;
+  flex-direction: column;
 }
 .prop-stage:before,
 .prop-stage:after {
@@ -936,7 +986,7 @@ section {
   z-index: 1;
   top: 0;
   bottom: 0;
-  width: 42px;
+  width: 34px;
   background: repeating-linear-gradient(
     90deg,
     #7f3447,
@@ -953,11 +1003,9 @@ section {
   transform: scaleX(-1);
 }
 .prop-stage-sign {
-  position: absolute;
-  top: 22px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: max-content;
+  position: relative;
+  z-index: 2;
+  text-align: center;
   color: #f1c962;
   font-size: 11px;
   letter-spacing: 0.24em;
@@ -966,9 +1014,14 @@ section {
 .prop-stage-sign span {
   margin-left: 7px;
 }
+.prop-playfield {
+  position: relative;
+  flex: 1;
+  min-height: 310px;
+}
 .stage-garland {
   position: absolute;
-  top: 100px;
+  top: 17%;
   left: 0;
   right: 0;
   text-align: center;
@@ -976,90 +1029,150 @@ section {
   font-size: 18px;
   opacity: 0.9;
 }
+.prop-stage-spark {
+  position: absolute;
+  color: #f1c962;
+  opacity: 0.8;
+  animation: sparkle 1.7s ease-in-out infinite alternate;
+}
+.spark-one {
+  top: 47%;
+  left: 34%;
+  font-size: 25px;
+}
+.spark-two {
+  top: 34%;
+  right: 30%;
+  font-size: 19px;
+  animation-delay: 0.6s;
+}
 .game-prop {
   position: absolute;
   z-index: 3;
-  width: 95px;
-  height: 125px;
+  width: 108px;
+  height: 130px;
   border: 0;
+  padding: 0;
   background: none;
   display: flex;
   align-items: center;
+  justify-content: center;
   flex-direction: column;
+  gap: 2px;
   color: #fff4df;
-  transition:
-    transform 0.2s,
-    filter 0.2s;
+  touch-action: manipulation;
+}
+.prop-art {
+  display: block;
+  animation-duration: 4.2s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
 }
 .game-prop svg {
-  width: 73px;
-  height: 91px;
+  display: block;
+  width: 76px;
+  height: 87px;
   filter: drop-shadow(4px 7px 0 #09272a4d);
 }
-.game-prop span {
+.prop-tag {
   font-size: 10px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   background: #18333a;
-  padding: 4px 6px;
+  padding: 5px 8px;
   white-space: nowrap;
 }
-.game-prop:hover,
-.game-prop:focus-visible {
-  transform: translateY(-8px) rotate(-5deg);
+.game-prop:hover .prop-art,
+.game-prop:focus-visible .prop-art,
+.game-prop.hinted .prop-art {
+  animation-play-state: paused;
+}
+.game-prop:hover .prop-art,
+.game-prop:focus-visible .prop-art {
+  filter: drop-shadow(0 0 12px #f1c962);
+}
+.game-prop.hinted:before {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border: 2px dashed #f1c962;
+  border-radius: 50%;
+  box-shadow: 0 0 18px #f1c962;
+  animation: hint-pulse 0.9s ease-in-out infinite alternate;
 }
 .game-prop.found {
-  filter: drop-shadow(0 0 11px #f1c962);
-  transform: scale(1.12);
+  filter: drop-shadow(0 0 12px #f1c962);
+  cursor: default;
+}
+.game-prop.found .prop-art {
+  animation: prop-settle 0.4s ease-out both;
+}
+.game-prop.found .prop-tag {
+  background: #f1c962;
+  color: #18333a;
 }
 .prop-hat {
-  top: 35%;
-  left: 12%;
-  transform: rotate(-13deg);
+  top: 32%;
+  left: 11%;
+}
+.prop-hat .prop-art {
+  animation-name: hat-drift;
+  animation-duration: 4.5s;
 }
 .prop-balloon {
-  top: 26%;
-  right: 13%;
-  transform: rotate(11deg);
+  top: 21%;
+  right: 9%;
+}
+.prop-balloon .prop-art {
+  animation-name: balloon-drift;
+  animation-duration: 3.6s;
 }
 .prop-candle {
-  bottom: 14%;
-  left: 44%;
-  transform: rotate(5deg);
+  bottom: 12%;
+  left: 43%;
+}
+.prop-candle .prop-art {
+  animation-name: candle-drift;
+  animation-duration: 3.9s;
 }
 .prop-shelf {
   position: absolute;
-  bottom: 28%;
-  height: 11px;
+  z-index: 0;
+  bottom: 8%;
+  height: 9px;
   background: #c58a62;
-  left: 7%;
-  right: 7%;
+  left: 2%;
+  right: 2%;
   box-shadow: 0 8px 0 #703e3e;
 }
 .game-result {
-  position: absolute;
-  z-index: 4;
-  bottom: 17px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: min(88%, 420px);
+  position: relative;
+  z-index: 3;
+  min-height: 64px;
+  padding: 10px 8px 0;
+  border-top: 1px solid #f1c96290;
   text-align: center;
   color: #fff4df;
   display: flex;
   align-items: center;
-  flex-direction: column;
-  gap: 8px;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6px 14px;
 }
 .game-result strong {
   font-family: Fraunces, serif;
-  font-size: 30px;
+  font-size: clamp(23px, 2.5vw, 30px);
 }
 .game-result > span:not(.result-sparkle) {
-  font-size: 12px;
+  font-size: 13px;
 }
 .game-result .button {
   min-height: 38px;
   padding: 7px 18px;
+}
+.game-result .result-sparkle {
+  font-size: 18px;
 }
 .result-sparkle {
   color: #f1c962;
@@ -1067,11 +1180,50 @@ section {
 }
 .prop-stage-number {
   position: absolute;
-  bottom: 19px;
-  right: 18px;
+  z-index: 2;
+  top: 21px;
+  right: 51px;
   color: #f1c962;
   font-size: 10px;
   letter-spacing: 0.15em;
+}
+@keyframes hat-drift {
+  from {
+    transform: translate(-9px, 12px) rotate(-12deg);
+  }
+  to {
+    transform: translate(17px, -12px) rotate(9deg);
+  }
+}
+@keyframes balloon-drift {
+  from {
+    transform: translate(-17px, 14px) rotate(-8deg);
+  }
+  to {
+    transform: translate(13px, -17px) rotate(9deg);
+  }
+}
+@keyframes candle-drift {
+  from {
+    transform: translate(-15px, -7px) rotate(-7deg);
+  }
+  to {
+    transform: translate(16px, 7px) rotate(7deg);
+  }
+}
+@keyframes prop-settle {
+  from {
+    transform: scale(1.27) rotate(-8deg);
+  }
+  to {
+    transform: scale(1) rotate(0);
+  }
+}
+@keyframes hint-pulse {
+  to {
+    opacity: 0.4;
+    transform: scale(1.08);
+  }
 }
 @keyframes sparkle {
   to {
@@ -2044,24 +2196,35 @@ section {
     font-size: 58px;
   }
   .prop-stage {
-    min-height: 430px;
+    min-height: 565px;
     border-width: 8px;
+    padding: 18px 30px 15px;
+  }
+  .prop-stage:before,
+  .prop-stage:after {
+    width: 22px;
+  }
+  .prop-playfield {
+    min-height: 415px;
+  }
+  .stage-garland {
+    top: 8%;
   }
   .prop-hat {
-    left: 8%;
-    top: 34%;
+    left: 4%;
+    top: 38%;
   }
   .prop-balloon {
-    right: 7%;
-    top: 29%;
+    right: 2%;
+    top: 10%;
   }
   .prop-candle {
-    left: 39%;
-    bottom: 18%;
+    left: calc(50% - 43px);
+    bottom: 2%;
   }
   .game-prop {
-    width: 77px;
-    height: 110px;
+    width: 86px;
+    height: 126px;
   }
   .game-prop svg {
     width: 64px;
@@ -2069,6 +2232,9 @@ section {
   }
   .game-result strong {
     font-size: 23px;
+  }
+  .prop-stage-number {
+    display: none;
   }
   .cake-stage {
     height: 355px;
@@ -2224,6 +2390,9 @@ section {
     font-size: 51px;
   }
   .prop-stage {
+    min-height: 555px;
+  }
+  .prop-playfield {
     min-height: 405px;
   }
   .game-prop svg {

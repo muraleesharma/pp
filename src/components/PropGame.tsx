@@ -88,20 +88,37 @@ const props = [
   },
 ] as const;
 
+type PropId = (typeof props)[number]["id"];
+
 export function PropGame() {
-  const [found, setFound] = useState<string[]>([]);
+  const [found, setFound] = useState<PropId[]>([]);
+  const [hinted, setHinted] = useState<PropId | null>(null);
   const [skipped, setSkipped] = useState(false);
-  const complete = found.length === 3;
-  const reveal = (id: string) =>
+  const complete = found.length === props.length;
+  const reveal = (id: PropId) => {
     setFound((current) => (current.includes(id) ? current : [...current, id]));
-  const next = () => {
+    setHinted(null);
+    setSkipped(false);
+  };
+  const showHint = () => {
     const item = props.find((item) => !found.includes(item.id));
-    if (item) reveal(item.id);
+    if (item) setHinted(item.id);
   };
   const reset = () => {
     setFound([]);
+    setHinted(null);
     setSkipped(false);
   };
+  const latest = props.find((item) => item.id === found.at(-1));
+  const hintedProp = props.find((item) => item.id === hinted);
+  const status = complete
+    ? "All three props caught. The stage is ready!"
+    : hintedProp
+      ? `Look for the glowing ${hintedProp.label}.`
+      : latest
+        ? `${latest.label} caught! ${props.length - found.length} to go.`
+        : "Catch all three props to set the stage.";
+
   return (
     <section id="game" className="game-section section-pad">
       <div className="game-copy">
@@ -110,30 +127,47 @@ export function PropGame() {
           Find the party <em>props</em>
         </h2>
         <p>
-          Three little surprises are hiding in plain sight. Give each one a tap
-          to get the stage ready.
+          The party hat, balloon, and candle are floating around the stage. Tap
+          or click each one to catch it before the cake scene.
         </p>
         <div className="game-progress" role="status" aria-live="polite">
-          <span>
+          <strong>
             {found.length}
-            <small>/3</small>
-          </span>{" "}
-          props found
+            <small>/{props.length}</small>
+          </strong>
+          <span>
+            props caught
+            <small>{status}</small>
+          </span>
         </div>
+        <ol className="prop-inventory" aria-label="Party props">
+          {props.map((item) => {
+            const isFound = found.includes(item.id);
+            return (
+              <li key={item.id} className={isFound ? "collected" : ""}>
+                <span>{item.label}</span>
+                <span className="inventory-mark" aria-hidden="true">
+                  {isFound ? "✓" : "✦"}
+                </span>
+              </li>
+            );
+          })}
+        </ol>
         <div className="game-actions">
           <button
             type="button"
             className="text-button"
-            onClick={next}
+            onClick={showHint}
             disabled={complete}
           >
-            Reveal next prop ↗
+            Need a hint? ↗
           </button>
           <button
             type="button"
             className="text-button"
             onClick={() => {
               setSkipped(true);
+              setHinted(null);
               document
                 .getElementById("cake")
                 ?.scrollIntoView({ behavior: scrollBehavior() });
@@ -148,36 +182,54 @@ export function PropGame() {
       </div>
       <div
         className={`prop-stage ${complete ? "complete" : ""}`}
+        role="group"
         aria-label="Find the party props game"
       >
         <div className="prop-stage-sign">
-          THE PROP ROOM <span>✦</span>
+          THE PROP ROOM <span aria-hidden="true">✦</span>
         </div>
-        <div className="stage-garland" aria-hidden="true">
-          ✦ ───── ✳ ───── ✦
+        <span className="prop-stage-number" aria-hidden="true">
+          0{found.length} / 03
+        </span>
+        <div className="prop-playfield">
+          <div className="stage-garland" aria-hidden="true">
+            ✦ ───── ✳ ───── ✦
+          </div>
+          <span className="prop-stage-spark spark-one" aria-hidden="true">
+            ✦
+          </span>
+          <span className="prop-stage-spark spark-two" aria-hidden="true">
+            ✧
+          </span>
+          {props.map((item) => {
+            const isFound = found.includes(item.id);
+            return (
+              <button
+                key={item.id}
+                type="button"
+                className={`game-prop prop-${item.id} ${isFound ? "found" : ""} ${hinted === item.id ? "hinted" : ""}`}
+                onClick={() => reveal(item.id)}
+                aria-label={
+                  isFound ? `${item.label} caught` : `Catch the ${item.label}`
+                }
+                disabled={isFound}
+              >
+                <span className="prop-art">{item.icon}</span>
+                <span className="prop-tag">
+                  {isFound ? "Caught!" : item.label}
+                </span>
+              </button>
+            );
+          })}
+          <div className="prop-shelf" aria-hidden="true" />
         </div>
-        {props.map((item) => (
-          <button
-            key={item.id}
-            type="button"
-            className={`game-prop prop-${item.id} ${found.includes(item.id) ? "found" : ""}`}
-            onClick={() => reveal(item.id)}
-            aria-label={`${found.includes(item.id) ? "Found" : "Find"} the ${item.label}`}
-            aria-pressed={found.includes(item.id)}
-          >
-            {item.icon}
-            <span>{found.includes(item.id) ? "Found!" : item.label}</span>
-          </button>
-        ))}
-        <div className="prop-shelf" aria-hidden="true" />
-        <div className="game-result" aria-live="polite">
+        <div className="game-result">
           {complete ? (
             <>
               <span className="result-sparkle" aria-hidden="true">
                 ✦ ✳ ✦
               </span>
               <strong>All set for the party!</strong>
-              <span>On to the sweetest scene.</span>
               <a href="#cake" className="button button-cream">
                 See the cake ↓
               </a>
@@ -190,17 +242,14 @@ export function PropGame() {
               </a>
             </>
           ) : (
-            <span className="prop-hint">Psst... look around the stage.</span>
+            <span className="prop-hint">
+              {found.length === 0
+                ? "Psst... catch the moving props!"
+                : `${props.length - found.length} more to go ✦`}
+            </span>
           )}
         </div>
-        <span className="prop-stage-number">
-          0{indexSafe(found.length)} / 03
-        </span>
       </div>
     </section>
   );
-}
-
-function indexSafe(value: number) {
-  return Math.min(value, 3);
 }
