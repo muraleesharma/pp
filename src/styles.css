@@ -92,6 +92,7 @@ section {
   align-items: center;
   gap: 8px;
   flex-shrink: 0;
+  min-height: 44px;
   text-decoration: none;
   white-space: nowrap;
 }
@@ -132,6 +133,9 @@ section {
 }
 .header-details {
   flex-shrink: 0;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
   border: 1px solid #fff4df80;
   border-radius: 100px;
   text-decoration: none;
@@ -583,6 +587,8 @@ section {
   background: none;
   color: #fff4df;
   border: 0;
+  min-height: 44px;
+  padding: 10px 16px;
   text-decoration: underline;
   text-underline-offset: 5px;
   margin-top: 16px;
@@ -1030,6 +1036,9 @@ section {
   flex-wrap: wrap;
   gap: 5px 22px;
 }
+.game-actions .text-button {
+  min-height: 44px;
+}
 .prop-stage {
   min-height: 500px;
   position: relative;
@@ -1415,20 +1424,20 @@ section {
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  gap: 48px;
+  gap: 30px;
 }
 .candle-button {
   position: relative;
   background: none;
   border: 0;
-  width: 26px;
+  width: 44px;
   height: 105px;
   padding: 0;
 }
 .candle-body {
   position: absolute;
   bottom: 0;
-  left: 3px;
+  left: calc(50% - 10px);
   width: 20px;
   height: 73px;
   background: repeating-linear-gradient(
@@ -1442,7 +1451,7 @@ section {
 .wick {
   position: absolute;
   bottom: 72px;
-  left: 12px;
+  left: calc(50% - 1px);
   width: 2px;
   height: 9px;
   background: #18333a;
@@ -1450,7 +1459,7 @@ section {
 .flame {
   position: absolute;
   bottom: 83px;
-  left: 6px;
+  left: calc(50% - 7.5px);
   width: 15px;
   height: 22px;
   transform: scale(0);
@@ -2071,6 +2080,7 @@ section {
     margin-top: 30px;
   }
   .star-tabs button {
+    min-height: 44px;
     border: 1px solid #f1c962;
     background: transparent;
     color: #fff4df;
@@ -2136,6 +2146,12 @@ section {
   .cake-illustration {
     transform: translateX(-50%) scale(0.9);
     transform-origin: bottom center;
+  }
+  .candles {
+    gap: 24px;
+  }
+  .candle-button {
+    width: 50px;
   }
   .ticket-wrap {
     display: block;
@@ -2276,6 +2292,12 @@ section {
   }
   .cake-illustration {
     transform: translateX(-50%) scale(0.77);
+  }
+  .candles {
+    gap: 16px;
+  }
+  .candle-button {
+    width: 58px;
   }
   .cake-stars {
     padding: 0 25px;
@@ -2443,6 +2465,12 @@ section {
   }
   .cake-illustration {
     transform: translateX(-50%) scale(0.69);
+  }
+  .candles {
+    gap: 10px;
+  }
+  .candle-button {
+    width: 64px;
   }
   .cake-stage {
     height: 325px;
